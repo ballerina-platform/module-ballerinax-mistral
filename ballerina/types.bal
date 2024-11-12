@@ -118,7 +118,7 @@ public type TrainingParametersIn record {
     anydata training_steps?;
     # A parameter describing how much to adjust the pre-trained model's weights in response to the estimated error each time the weights are updated during the fine-tuning process.
     @constraint:Number {minValue: 1.0E-8, maxValue: 1}
-    decimal learning_rate = "1.0E-4";
+    decimal learning_rate = 1.0E-4;
     # (Advanced Usage) Weight decay adds a term to the loss function that is proportional to the sum of the squared weights. This term reduces the magnitude of the weights and prevents them from growing too large.
     anydata weight_decay = 0.1;
     # (Advanced Usage) A parameter that specifies the percentage of the total training steps at which the learning rate warm-up phase ends. During this phase, the learning rate gradually increases from a small value to the initial learning rate, helping to stabilize the training process and improve convergence. Similar to `pct_start` in [mistral-finetune](https://github.com/mistralai/mistral-finetune)
@@ -355,7 +355,7 @@ public type FIMCompletionRequest record {
     # The text/code to complete.
     string prompt;
     # Optional text/code that adds more context for the model. When given a `prompt` and a `suffix` the model will fill what is between them. When `suffix` is not provided, the model will simply execute completion starting with `prompt`.
-    anydata suffix = ;
+    anydata suffix = null;
 };
 
 public type SystemMessage record {
@@ -490,7 +490,7 @@ public type ToolChoiceEnum "auto"|"none"|"any"|"required";
 public type TrainingParameters record {
     anydata training_steps?;
     @constraint:Number {minValue: 1.0E-8, maxValue: 1}
-    decimal learning_rate = "1.0E-4";
+    decimal learning_rate = 1.0E-4;
     anydata weight_decay = 0.1;
     anydata warmup_fraction = 0.05;
     anydata epochs?;

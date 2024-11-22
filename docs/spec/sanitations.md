@@ -6,15 +6,13 @@ _Edition_: Swan Lake
 # Sanitation for OpenAPI specification
 
 This document records the sanitation done on top of the official OpenAPI specification from Mistral AI. 
-The OpenAPI specification is obtained from [Mistral AI OpenAPI specification](https://docs.mistral.ai/redocusaurus/plugin-redoc-0.yaml).
+
 These changes are done in order to improve the overall usability, and as workarounds for some known language limitations.
 
-[//]: # (TODO: Add sanitation details)
 1. **Removed Dash Prefix**: Updated `$ref` reference for `EmbeddingResponseData` schema.
    - **Before**: `- $ref: "#/components/schemas/EmbeddingResponseData"`
-   - **After**: `$ref: "#/components/schemas/EmbeddingResponseData"` 
-2. 
-3. 
+   - **After**: `$ref: "#/components/schemas/EmbeddingResponseData"`
+   In the OpenAPI Specification (OAS), the dash (-) prefix is used to indicate an array item within a list.However, if the $ref is being directly assigned to a property and not part of an array, the dash prefix is unnecessary
 
 ## OpenAPI cli command
 

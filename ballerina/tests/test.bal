@@ -16,8 +16,8 @@
 
 import ballerina/data.jsondata;
 import ballerina/io;
-import ballerina/test;
 import ballerina/os;
+import ballerina/test;
 
 configurable boolean isLiveServer = os:getEnv("isLiveServer") == "false";
 configurable string token = isLiveServer ? os:getEnv("mistralToken") : "test";

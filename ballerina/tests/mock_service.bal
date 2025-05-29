@@ -17,7 +17,7 @@
 import ballerina/http;
 
 service / on new http:Listener(9090) {
-        resource function post chat/completions(map<json> payload) returns ChatCompletionResponse|http:BadRequest {
+    resource function post chat/completions(map<json> payload) returns ChatCompletionResponse|http:BadRequest {
         AssistantMessage message = {
             role: "assistant",
             toolCalls: null,
@@ -33,8 +33,8 @@ service / on new http:Listener(9090) {
 
         // Mock response
         ChatCompletionResponse response = {
-            id: "cmpl-e5cc70bb28c444948073e77776eb30ef",
-            model: "gpt-4o-mini-2024-07-18",
+            id: "chatcmpl-1234abcd",
+            model: "mistral-7b-instruct",
             'object: "chat.completion",
             usage: {completionTokens: 16, promptTokens: 34, totalTokens: 50},
             choices: [
@@ -45,8 +45,7 @@ service / on new http:Listener(9090) {
         return response;
     }
 
-
-    resource function get models() returns  ModelList|error{
+    resource function get models() returns ModelList|error {
         ModelCapabilities modelCapabilities = {
             completionChat: true,
             functionCalling: true,
@@ -56,9 +55,9 @@ service / on new http:Listener(9090) {
         };
 
         BaseModelCard baseModel1 = {
-           id: "ministral-3b-2410",
-           capabilities: modelCapabilities,
-           aliases: ["ministral-3b-latest"]
+            id: "ministral-3b-2410",
+            capabilities: modelCapabilities,
+            aliases: ["ministral-3b-latest"]
         };
 
         BaseModelCard baseModel2 = {
@@ -71,7 +70,7 @@ service / on new http:Listener(9090) {
             'object: "list",
             data: [baseModel1, baseModel2]
         };
-        
+
         return models;
-    } 
+    }
 };

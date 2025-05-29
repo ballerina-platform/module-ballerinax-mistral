@@ -34,7 +34,7 @@ To use the Mistral AI Connector, you must have access to the Mistral AI API thro
 
 ## Quickstart
 
-To use the `Mistaral` connector in your Ballerina application, update the `.bal` as follow: 
+To use the `Mistral` connector in your Ballerina application, update the `.bal` as follow: 
 
 ### step 1: Import the module
 

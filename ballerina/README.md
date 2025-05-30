@@ -14,16 +14,16 @@ To use the Mistral AI Connector, you must have access to the Mistral AI API thro
 2. Navigate to the API Keys panel.
 
 3. Choose a plan based on your requirements.
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/choose-plan.png alt="Mistral AI Platform">
+![Mistral AI Platform](docs\setup\resources\choose-plan.png)
 
 4. Proceed to create a new API key.
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/create-key.png alt="Mistral AI Platform">
+![Mistral AI Platform](docs\setup\resources\create-key.png)
 
 5. Enter the necessary details as prompted and click on Create new key.
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/details-panel.png alt="Mistral AI Platform">
+![Mistral AI Platform](docs\setup\resources\details-panel.png)
 
 6. Copy the API key and store it securely
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/copy-key.png alt="Mistral AI Platform">
+![Mistral AI Platform](docs\setup\resources\copy-key.png)
 
 ## Quickstart
 

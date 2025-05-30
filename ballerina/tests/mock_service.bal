@@ -20,13 +20,13 @@ service / on new http:Listener(9090) {
     resource function post chat/completions(map<json> payload) returns ChatCompletionResponse|http:BadRequest {
         AssistantMessage message = {
             role: "assistant",
-            toolCalls: null,
+            tool_calls: null,
             content: "Test message received! How can I assist you today?",
             prefix: false
         };
 
         ChatCompletionChoice choice = {
-            finishReason: "stop",
+            finish_reason: "stop",
             index: 0,
             message: message
         };
@@ -36,7 +36,7 @@ service / on new http:Listener(9090) {
             id: "chatcmpl-1234abcd",
             model: "mistral-7b-instruct",
             'object: "chat.completion",
-            usage: {completionTokens: 16, promptTokens: 34, totalTokens: 50},
+            usage: {completion_tokens: 16, prompt_tokens: 34, total_tokens: 50},
             choices: [
                 choice
             ],
@@ -47,11 +47,11 @@ service / on new http:Listener(9090) {
 
     resource function get models() returns ModelList|error {
         ModelCapabilities modelCapabilities = {
-            completionChat: true,
-            functionCalling: true,
+            completion_chat: true,
+            function_calling: true,
             vision: false,
-            fineTuning: false,
-            completionFim: false
+            fine_tuning: false,
+            completion_fim: false
         };
 
         BaseModelCard baseModel1 = {

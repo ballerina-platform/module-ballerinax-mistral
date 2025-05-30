@@ -38,8 +38,6 @@ function initClient() returns Client|error {
     enable: !isLiveServer
 }
 isolated function testChatCompletion() returns error? {
-    io:println("Live server: ", isLiveServer);
-    io:println("Token: ", token);
     UserMessage userMessage = {
         role: "user",
         content: "This is a test message"
@@ -70,8 +68,6 @@ isolated function listModels() returns error? {
     ModelList response = check mistralAiClient->/models.get();
 
     json jsonResp;
-    io:println("Server response: ", response);
-
     if isLiveServer {
         (BaseModelCard|FTModelCard)[]? modelListData = response?.data;
         if modelListData is () {

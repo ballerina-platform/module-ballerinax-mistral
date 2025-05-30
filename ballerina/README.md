@@ -14,22 +14,22 @@ To use the Mistral AI Connector, you must have access to the Mistral AI API thro
 2. Navigate to the API Keys panel.
 
 3. Choose a plan based on your requirements.
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/choose-plan.png alt="Mistral AI Platform" style="width: 70%;">
+<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/choose-plan.png alt="Mistral AI Platform">
 
 4. Proceed to create a new API key.
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/create-key.png alt="Mistral AI Platform" style="width: 70%;">
+<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/create-key.png alt="Mistral AI Platform">
 
 5. Enter the necessary details as prompted and click on Create new key.
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/details-panel.png alt="Mistral AI Platform" style="width: 70%;">
+<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/details-panel.png alt="Mistral AI Platform">
 
 6. Copy the API key and store it securely
-<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/copy-key.png alt="Mistral AI Platform" style="width: 70%;">
+<img src=https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-mistral/main/docs/setup/resources/copy-key.png alt="Mistral AI Platform">
 
 ## Quickstart
 
 To use the `Mistaral` connector in your Ballerina application, update the `.bal` as follow: 
 
-### step 1: Import the module
+### Step 1: Import the module
 
 Import the `ballerinax/mistral` module
 
@@ -37,7 +37,7 @@ Import the `ballerinax/mistral` module
 import ballerinax/mistral;
 ```
 
-### step 2: Create a new connector instance
+### Step 2: Create a new connector instance
 
 Create a mistral:Client with the obtained API Key and initialize the connector.
 
@@ -49,7 +49,7 @@ mistral:Client mistralClient = check new (
 );
 ```
 
-### step 3: Step 3: Invoke the connector operation
+### Step 3: Invoke the connector operation
 
 Now, you can utilize available connector operations.
 
@@ -68,6 +68,9 @@ mistral:ChatCompletionRequest request = {
 mistral:ChatCompletionResponse response = check mistralClient->/chat/completions.post(request);
 ```
 ### Step 4: Run the Ballerina application
+
+Execute the command below to run the Ballerina application:
+
 ```ballerina
 bal run
 ```

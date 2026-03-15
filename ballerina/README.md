@@ -1,8 +1,15 @@
- ## Overview
+## Overview
 
-[Mistral AI](https://chat.mistral.ai/chat?q=) is a research lab focused on developing the best open-source AI models. It provides developers and businesses with powerful [APIs](https://docs.mistral.ai/api/) and tools to build innovative applications using both free and commercial large language models.
+[Mistral AI](https://chat.mistral.ai/chat?q=) is a research lab focused on developing high-performance, open-weights large language models (LLMs). It provides developers and businesses with powerful [APIs](https://docs.mistral.ai/api/) and tools to build innovative applications using both free and commercial models.
 
-This connector offers APIs to connect and interact with the endpoints of Mistral AI API v1, enabling seamless integration with Mistral's language models.
+The Mistral connector offers APIs to connect and interact with the endpoints of the Mistral AI API, enabling seamless integration with Mistral's language models.
+
+### Key Features
+
+- Support for chat completions and text generation
+- Integration with high-performance Mistral LLMs
+- Secure communication with API key authentication
+- Flexible model parameters and prompt management
 
 ## Setup guide
 To use the Mistral AI Connector, you must have access to the Mistral AI API through a Mistral AI account and an active API key. If you do not have a Mistral AI account, you can sign up for one [here](https://mistral.ai/)

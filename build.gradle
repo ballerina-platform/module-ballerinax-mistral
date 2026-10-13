@@ -57,8 +57,14 @@ allprojects {
 
 def moduleVersion = project.version.replace("-SNAPSHOT", "")
 
-task build {
-    dependsOn(':mistral-ballerina:build')
+if (!tasks.names.contains('build')) {
+    tasks.register('build') {
+        dependsOn(':mistral-ballerina:build')
+    }
+} else {
+    tasks.named('build') {
+        dependsOn(':mistral-ballerina:build')
+    }
 }
 
 release {

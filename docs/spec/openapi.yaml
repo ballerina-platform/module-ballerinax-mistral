@@ -1369,6 +1369,37 @@ components:
           - text
           default: text
       additionalProperties: false
+    ThinkChunk:
+      title: ThinkChunk
+      required:
+      - thinking
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          enum:
+          - thinking
+          default: thinking
+        thinking:
+          title: Thinking
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/TextChunk'
+            - $ref: '#/components/schemas/ReferenceChunk'
+        signature:
+          title: Signature
+          type: string
+          description: Signature to replay some reasoning blocks across turns
+          nullable: true
+        closed:
+          title: Closed
+          type: boolean
+          description: Whether the thinking chunk is closed or not. Currently only
+            used for prefixing
+          default: true
+      additionalProperties: false
     WandbIntegrationOut:
       title: WandbIntegrationOut
       required:
@@ -1525,11 +1556,13 @@ components:
           document_url: '#/components/schemas/DocumentURLChunk'
           text: '#/components/schemas/TextChunk'
           reference: '#/components/schemas/ReferenceChunk'
+          thinking: '#/components/schemas/ThinkChunk'
       oneOf:
       - $ref: '#/components/schemas/TextChunk'
       - $ref: '#/components/schemas/ImageURLChunk'
       - $ref: '#/components/schemas/DocumentURLChunk'
       - $ref: '#/components/schemas/ReferenceChunk'
+      - $ref: '#/components/schemas/ThinkChunk'
     MultiPartBodyParams:
       title: MultiPartBodyParams
       required:
@@ -3372,6 +3405,10 @@ components:
           - $ref: '#/components/schemas/ToolChoiceEnum'
           default: auto
           x-ballerina-name: toolChoice
+        reasoning_effort:
+          allOf:
+          - $ref: '#/components/schemas/ReasoningEffort'
+          x-ballerina-name: reasoningEffort
         model:
           title: Model
           type: string
@@ -3436,6 +3473,18 @@ components:
           default: image_url
       additionalProperties: false
       description: "{\"type\":\"image_url\",\"image_url\":{\"url\":\"data:image/png;base64,iVBORw0"
+    ReasoningEffort:
+      title: ReasoningEffort
+      type: string
+      description: "Controls the reasoning effort of reasoning-capable models. Supported\
+        \ values vary by model"
+      enum:
+      - none
+      - minimal
+      - low
+      - medium
+      - high
+      - xhigh
     ToolChoiceEnum:
       title: ToolChoiceEnum
       type: string

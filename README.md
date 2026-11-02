@@ -74,6 +74,22 @@ mistral:ChatCompletionRequest request = {
 
 mistral:ChatCompletionResponse response = check mistralClient->/chat/completions.post(request);
 ```
+
+Generate a response using a reasoning model. The response content is a list of chunks, where `mistral:ThinkChunk` values carry the model's reasoning and `mistral:TextChunk` values carry the final answer.
+```ballerina
+mistral:ChatCompletionRequest request = {
+    model: "mistral-small-2603",
+    reasoningEffort: "high",
+    messages: [
+        {
+            role: "user",
+            content: "How many prime numbers are there between 1 and 50?"
+        }
+    ]
+};
+
+mistral:ChatCompletionResponse response = check mistralClient->/chat/completions.post(request);
+```
 ### Step 4: Run the Ballerina application
 
 Execute the command below to run the Ballerina application:

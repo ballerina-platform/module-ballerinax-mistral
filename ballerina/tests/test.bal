@@ -61,6 +61,72 @@ isolated function testChatCompletion() returns error? {
 }
 
 @test:Config {
+    groups: ["mock_tests"],
+    enable: !isLiveServer
+}
+isolated function testChatCompletionWithThinkingChunks() returns error? {
+    ChatCompletionRequest chatRequest = {
+        messages: [{role: "user", content: "What is 2 + 3?"}],
+        model: "mistral-large-4-0",
+        reasoningEffort: "high"
+    };
+
+    ChatCompletionResponse response = check mistralAiClient->/chat/completions.post(chatRequest);
+    ChatCompletionChoice[]? choices = response.choices;
+    if choices is () {
+        return error("Expected choices in the response");
+    }
+    string|ContentChunk[]? content = choices[0].message?.content;
+    if content !is ContentChunk[] {
+        return error("Expected the content to be a list of chunks");
+    }
+    test:assertEquals(content.length(), 2);
+    ContentChunk thinkingChunk = content[0];
+    if thinkingChunk !is ThinkChunk {
+        return error("Expected the first chunk to be a thinking chunk");
+    }
+    test:assertEquals(thinkingChunk.thinking, [{'type: "text", text: "The user wants the sum of 2 and 3."}]);
+    test:assertEquals(content[1], {'type: "text", text: "2 + 3 = 5"});
+}
+
+@test:Config {
+    groups: ["mock_tests"]
+}
+isolated function testReasoningEffortSerialization() {
+    ChatCompletionRequest chatRequest = {
+        messages: [{role: "user", content: "Hi"}],
+        model: "mistral-small-2603",
+        reasoningEffort: "none"
+    };
+    json payload = jsondata:toJson(chatRequest);
+    if payload !is map<json> {
+        test:assertFail("Expected a JSON object");
+    }
+    test:assertEquals(payload["reasoning_effort"], "none");
+    test:assertFalse(payload.hasKey("reasoningEffort"));
+}
+
+@test:Config {
+    groups: ["mock_tests"]
+}
+isolated function testThinkChunkSerialization() {
+    AssistantMessage message = {
+        content: [
+            {thinking: [{text: "Reasoning trace"}]},
+            {text: "Final answer"}
+        ]
+    };
+    test:assertEquals(jsondata:toJson(message), {
+        "role": "assistant",
+        "prefix": false,
+        "content": [
+            {"type": "thinking", "thinking": [{"text": "Reasoning trace", "type": "text"}], "closed": true},
+            {"text": "Final answer", "type": "text"}
+        ]
+    });
+}
+
+@test:Config {
     groups: ["live_tests", "mock_tests"]
 }
 

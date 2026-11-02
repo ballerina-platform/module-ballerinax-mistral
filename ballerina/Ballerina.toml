@@ -2,7 +2,7 @@
 distribution = "2201.12.4"
 org = "ballerinax"
 name = "mistral"
-version = "1.0.2"
+version = "1.1.0"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
 keywords = ["AI/LLM", "Cost/Freemium", "Vendor/Mistral", "Area/AI & Machine Learning", "Type/Connector"]

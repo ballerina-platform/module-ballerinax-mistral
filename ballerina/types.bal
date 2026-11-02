@@ -117,6 +117,15 @@ public type FileSchema record {
     string 'object;
 };
 
+public type ThinkChunk record {|
+    "thinking" 'type = "thinking";
+    (TextChunk|ReferenceChunk)[] thinking;
+    # Signature to replay some reasoning blocks across turns
+    string? signature?;
+    # Whether the thinking chunk is closed or not. Currently only used for prefixing
+    boolean closed = true;
+|};
+
 # The fine-tuning hyperparameter settings used in a fine-tune job
 public type TrainingParametersIn record {
     @jsondata:Name {value: "fim_ratio"}
@@ -276,7 +285,7 @@ public type MultiPartBodyParams record {
     FilePurpose purpose?;
 };
 
-public type ContentChunk TextChunk|ImageURLChunk|DocumentURLChunk|ReferenceChunk;
+public type ContentChunk TextChunk|ImageURLChunk|DocumentURLChunk|ReferenceChunk|ThinkChunk;
 
 public type ChatCompletionResponseBase record {
     *ResponseBase;
@@ -454,6 +463,9 @@ public type ReferenceChunk record {|
     int[] referenceIds;
     "reference" 'type = "reference";
 |};
+
+# Controls the reasoning effort of reasoning-capable models. Supported values vary by model
+public type ReasoningEffort "none"|"minimal"|"low"|"medium"|"high"|"xhigh";
 
 public type OCRImageObject record {|
     # X coordinate of bottom-right corner of the extracted image
@@ -896,6 +908,8 @@ public type ChatCompletionRequest record {|
     AgentsCompletionRequestMessages[] messages;
     @jsondata:Name {value: "tool_choice"}
     ToolChoice|ToolChoiceEnum toolChoice = "auto";
+    @jsondata:Name {value: "reasoning_effort"}
+    ReasoningEffort reasoningEffort?;
     # ID of the model to use. You can use the [List Available Models](/api/#tag/models/operation/list_models_v1_models_get) API to see all of your available models, or see our [Model overview](/models) for model descriptions
     string model;
 |};

@@ -17,7 +17,14 @@
 import ballerina/http;
 
 service / on new http:Listener(9090) {
-    resource function post chat/completions(map<json> payload) returns ChatCompletionResponse|http:BadRequest {
+    resource function post chat/completions(map<json> payload) returns ChatCompletionResponse|json|http:BadRequest {
+        if payload["model"] == "mistral-large-4-0" {
+            if payload["reasoning_effort"] != "high" {
+                return http:BAD_REQUEST;
+            }
+            return reasoningResponse;
+        }
+
         AssistantMessage message = {
             role: "assistant",
             toolCalls: null,
@@ -73,4 +80,30 @@ service / on new http:Listener(9090) {
 
         return models;
     }
+};
+
+final json & readonly reasoningResponse = {
+    "id": "chatcmpl-reasoning",
+    "object": "chat.completion",
+    "model": "mistral-large-4-0",
+    "created": 1761811200,
+    "usage": {"prompt_tokens": 12, "completion_tokens": 40, "total_tokens": 52},
+    "choices": [
+        {
+            "index": 0,
+            "finish_reason": "stop",
+            "message": {
+                "role": "assistant",
+                "tool_calls": null,
+                "prefix": false,
+                "content": [
+                    {
+                        "type": "thinking",
+                        "thinking": [{"type": "text", "text": "The user wants the sum of 2 and 3."}]
+                    },
+                    {"type": "text", "text": "2 + 3 = 5"}
+                ]
+            }
+        }
+    ]
 };

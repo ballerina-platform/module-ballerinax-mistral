@@ -10,6 +10,7 @@ The Mistral connector offers APIs to connect and interact with the endpoints of 
 - Integration with high-performance Mistral LLMs
 - Secure communication with API key authentication
 - Flexible model parameters and prompt management
+- Support for reasoning models with configurable reasoning effort and thinking content
 
 ## Setup guide
 To use the Mistral AI Connector, you must have access to the Mistral AI API through a Mistral AI account and an active API key. If you do not have a Mistral AI account, you can sign up for one [here](https://mistral.ai/)
@@ -68,6 +69,22 @@ mistral:ChatCompletionRequest request = {
         {
             role: "user",
             content: "What is the capital of France?"
+        }
+    ]
+};
+
+mistral:ChatCompletionResponse response = check mistralClient->/chat/completions.post(request);
+```
+
+Generate a response using a reasoning model. The response content is a list of chunks, where `mistral:ThinkChunk` values carry the model's reasoning and `mistral:TextChunk` values carry the final answer.
+```ballerina
+mistral:ChatCompletionRequest request = {
+    model: "mistral-small-2603",
+    reasoningEffort: "high",
+    messages: [
+        {
+            role: "user",
+            content: "How many prime numbers are there between 1 and 50?"
         }
     ]
 };
